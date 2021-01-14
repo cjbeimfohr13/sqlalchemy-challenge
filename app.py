@@ -75,8 +75,17 @@ def tobs():
     
     session = Session(engine)
     
-    return ""
-
+    results=session.query(Measurement.date,Measurement.tobs).filter(Measurement.date>= "2016-08-23").\
+        filter(Measurement.date <="2017-08-23").\
+        filter(Measurement.station=='USC00519281').all()
+    
+    tobs = [] 
+    for r in results: 
+        for t in r: 
+        tobs.append(t) 
+        
+    return (tobs)
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
