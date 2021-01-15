@@ -68,7 +68,7 @@ def stations():
         for x in r: 
         stations.append(x) 
         
-    return (stations)
+    return jsonify(stations)
 
 @app.route("/api/v1.0/tobs")
 def tobs():
@@ -84,8 +84,43 @@ def tobs():
         for t in r: 
         tobs.append(t) 
         
-    return (tobs)
+    return jsonify(tobs)
+
+@app.route("/api/v1.0/<start>")
+def start():
     
+    session = Session(engine)
+    results_min_max_avg=session.query(func.avg(Measurement.tobs),func.min(Measurement.tobs),func.max(Measurement.tobs)).\
+    filter(Measurement.date>="2016-08-23").all()
+    
+    start_tobs=[]
+    for result in results_min_max_avg:
+        dict_start_tobs={}
+        dict_start_tobs["Min"]=start_tobs_min
+        dict_start_tobs["Max"]=start_tob_min
+        dict_start_tobs["Avg"]=start_tob_avg
+        start_tobs.append(dict_start_tobs)
+    
+    return jsonify(start_tobs)
+
+@app.route("/api/v1.0/<start>/<end>")
+def start_end():
+    
+    session = Session(engine)
+    start_end_min_max_avg=session.query(func.avg(Measurement.tobs),func.min(Measurement.tobs),func.max(Measurement.tobs)).\
+    filter(Measurement.date>="2016-08-23").\
+    filter(Measurement.date<="2017-08-23").all()
+    
+    start_end_tobs=[]
+    for result in start_end_min_max_avg:
+        dict_start_end_tobs={}
+        dict_start_end_tobs["Min"]=start_end_tobs_min
+        dict_start_end_tobs["Max"]=start_end_tobs_max
+        dict_start_end_tobs["Avg"]=start_end_tobs_avg
+        start_end_tobs.append(dict_start_end_tobs)
+        
+    return jsonify(start_end_tobs)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
