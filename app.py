@@ -30,11 +30,11 @@ def home():
     
     return (
         f"Available Routes:<br/>"
-        f"/api/v1.0/precipitation"
-        f"/api/v1.0/stations"
-        f"/api/v1.0/tobs"
-        f"/api/v1.0/<start>"
-        f"/api/v1.0/<start>/<end>"
+        f"/api/v1.0/precipitation<br/>"
+        f"/api/v1.0/stations<br/>"
+        f"/api/v1.0/tobs<br/>"
+        f"/api/v1.0/<start><br/>"
+        f"/api/v1.0/<start>/<end><br/>"
     )
 
 @app.route("/api/v1.0/precipitation")
@@ -50,8 +50,8 @@ def precipitation():
     precipitation = []
     for date,prcp in results:
         precipitation_dict = {}
-        precipitation_dict["date"] = date
-        precipitation_dict["prcp"] = prcp
+        precipitation_dict["date"] = results[0]
+        precipitation_dict["prcp"] = results[1]
         precipitation.append(precipitation_dict)
 
     return jsonify(precipitation)
@@ -67,9 +67,10 @@ def stations():
     session.close()
     
     stations = [] 
-    for r in results: 
-        for x in r: 
-        stations.append(x) 
+    for station in results: 
+        stations_dict={}
+        stations["station"]=results[0]
+        stations.append(stations_dict)
         
     return jsonify(stations)
 
@@ -84,9 +85,11 @@ def tobs():
     
     tobs = [] 
     for r in results: 
-        for t in r: 
-        tobs.append(t) 
-        
+        tobs_dict={}
+        tobs_dict["date"]=results[0]
+        tobs_dict["tobs"]=results[1]
+        tobs.append(tobs_dict) 
+    
     return jsonify(tobs)
 
 @app.route("/api/v1.0/<start>")
@@ -99,9 +102,9 @@ def start():
     start_tobs=[]
     for result in results_min_max_avg:
         dict_start_tobs={}
-        dict_start_tobs["Min"]=start_tobs_min
-        dict_start_tobs["Max"]=start_tob_min
-        dict_start_tobs["Avg"]=start_tob_avg
+        dict_start_tobs["Min"]=results_min_max_avg[1]
+        dict_start_tobs["Max"]=results_min_max_avg[2]
+        dict_start_tobs["Avg"]=results_min_max_avg[0]
         start_tobs.append(dict_start_tobs)
     
     return jsonify(start_tobs)
@@ -117,9 +120,9 @@ def start_end():
     start_end_tobs=[]
     for result in start_end_min_max_avg:
         dict_start_end_tobs={}
-        dict_start_end_tobs["Min"]=start_end_tobs_min
-        dict_start_end_tobs["Max"]=start_end_tobs_max
-        dict_start_end_tobs["Avg"]=start_end_tobs_avg
+        dict_start_end_tobs["Min"]=start_end_min_max_avg[1]
+        dict_start_end_tobs["Max"]=start_end_min_max_avg[2]
+        dict_start_end_tobs["Avg"]=start_end_min_max_avg[0]
         start_end_tobs.append(dict_start_end_tobs)
         
     return jsonify(start_end_tobs)
