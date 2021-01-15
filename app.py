@@ -1,5 +1,5 @@
 # import dependencies
-from flask import Flask
+from flask import Flask,jsonify
 import numpy as np
 
 import sqlalchemy
@@ -30,8 +30,11 @@ def home():
     
     return (
         f"Available Routes:<br/>"
-        f"/api/v1.0/names<br/>"
-        f"/api/v1.0/passengers"
+        f"/api/v1.0/precipitation"
+        f"/api/v1.0/stations"
+        f"/api/v1.0/tobs"
+        f"/api/v1.0/<start>"
+        f"/api/v1.0/<start>/<end>"
     )
 
 @app.route("/api/v1.0/precipitation")
