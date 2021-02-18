@@ -16,6 +16,9 @@ engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
+Station= Base.classes.station
+Measurement= Base.classes.measurement
+
 #################################################
 # Flask Setup
 #################################################
