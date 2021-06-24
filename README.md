@@ -3,14 +3,14 @@ For this homework assignment we performed a basic climate analysis and explored 
 
 ***
 Tools Used:
--Jupyter Notebook
--Python
+*Jupyter Notebook
+*Python
 
 Libraries Used:
--Pandas
--Matplotlib
--Flask 
--Numpy
--Sqlalchemy
--Sqlalchemy.ORM
+*Pandas
+*Matplotlib
+*Flask 
+*Numpy
+*Sqlalchemy
+*Sqlalchemy.ORM
 
