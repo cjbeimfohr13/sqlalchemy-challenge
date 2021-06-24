@@ -5,7 +5,7 @@ For this homework assignment we performed a basic climate analysis and explored 
 * Jupyter Notebook
 * Python
 
-# Libraries Used:
+## Libraries Used:
 * Pandas
 * Matplotlib
 * Flask
